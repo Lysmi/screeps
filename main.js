@@ -52,25 +52,25 @@ module.exports =  {
         {
 			const spawner = Game.spawns[spawnerKey]			  
 			//Harvester Spawn
-			if(harvesters.length < 4)
+			if(harvesters.length < 10)
 			{
 				harvestModule.spawn(spawner)
 			}
 
 			//Delivery Spawn
-			if(deliveries.length < 8)
+			if(deliveries.length < 10)
 			{
 				deliveryModule.spawn(spawner)
 			}		
 
 			//Upgrader Spawn
-			if(upgraders.length < 3)
+			if(upgraders.length < 4)
 			{
 				upgradersModule.spawn(spawner)
 			} 
 			
 			//Builder Spawn
-			if(builders.length < 2)
+			if(builders.length < 3)
 			{
 				buildersModule.spawn(spawner)
 			} 

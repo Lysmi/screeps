@@ -3,8 +3,6 @@ const { random } = require("lodash")
 module.exports = {
     run(creep)
     {
-        creep.memory.appEnergy = false
-
         const controllerFound = creep.room.controller
         const pathToController = creep.pos.findPathTo(controllerFound)
         if(creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
