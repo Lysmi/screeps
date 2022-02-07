@@ -3,11 +3,10 @@ const { random } = require("lodash")
 module.exports = {
     run(creep)
     {
-        const energyFound = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE)
-        const pathToEnergy = creep.pos.findPathTo(energyFound)
+        const energyFound = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE)
         if(creep.harvest(energyFound) == ERR_NOT_IN_RANGE) 
         {
-            creep.moveByPath(pathToEnergy)
+            creep.moveTo(energyFound)
         }
     },
     spawn(spawner)

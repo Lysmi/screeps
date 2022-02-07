@@ -20,21 +20,19 @@ module.exports = {
                             resourceFound = resource
                         }
                     }
-                    const pathToResource = creep.pos.findPathTo(resourceFound)              
                     if (resourceFound!=null)
                     {
                         if(creep.pickup(resourceFound) == ERR_NOT_IN_RANGE) 
                         {
-                            creep.moveByPath(pathToResource)
+                            creep.moveTo(resourceFound)
                         }
                     } 
                     else
                     {
-                        const tombstoneFound = creep.pos.findClosestByPath(FIND_TOMBSTONES)
-                        const pathToTombstone = creep.pos.findPathTo(tombstoneFound)
+                        const tombstoneFound = creep.pos.findClosestByRange(FIND_TOMBSTONES)
                         if(creep.withdraw(tombstoneFound) == ERR_NOT_IN_RANGE) 
                         {
-                            creep.moveByPath(pathToTombstone)
+                            creep.moveTo(tombstoneFound)
                         }
                     }
                 } 
@@ -55,11 +53,10 @@ module.exports = {
                         else
                         {
                             const targetCreep = Game.creeps[creep.memory.targetCreep]
-                            const pathToCreep = creep.pos.findPathTo(targetCreep)
                             switch (creep.transfer(targetCreep, RESOURCE_ENERGY))
                             {
                                 case ERR_NOT_IN_RANGE:
-                                    creep.moveByPath(pathToCreep)
+                                    creep.moveTo(targetCreep)
                                     break
                                 case OK:
                                     creep.memory.targetCreep = ' '
@@ -69,13 +66,12 @@ module.exports = {
                     } 
                     else
                     {
-                        const spawnFound = creep.pos.findClosestByPath(FIND_MY_SPAWNS)
-                        const pathToSpawn = creep.pos.findPathTo(spawnFound)
+                        const spawnFound = creep.pos.findClosestByRange(FIND_MY_SPAWNS)
                         if(spawnFound.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
                         {
                             if(creep.transfer(spawnFound, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
                             {
-                                creep.moveByPath(pathToSpawn)
+                                creep.moveTo(spawnFound)
                             }
                         } 
                         else

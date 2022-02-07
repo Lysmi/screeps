@@ -3,8 +3,11 @@ const { random } = require("lodash")
 module.exports = {
     run(creep)
     {
+        if (Game.time%100 == 0)
+        {
+            creep.memory.appEnergy = false
+        }
         const controllerFound = creep.room.controller
-        const pathToController = creep.pos.findPathTo(controllerFound)
         if(creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
         {
             creep.memory.appEnergy = false
@@ -12,7 +15,7 @@ module.exports = {
         switch(creep.upgradeController(controllerFound))
         {
             case ERR_NOT_IN_RANGE:
-                creep.moveByPath(pathToController)
+                creep.moveTo(controllerFound)
                 break
             case ERR_NOT_ENOUGH_RESOURCES:
                 if(!Memory.creepsNeedEnergy[creep.name] && creep.memory.appEnergy == false)

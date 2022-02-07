@@ -3,8 +3,11 @@ const { random } = require("lodash")
 module.exports = {
     run(creep)
     {
-        const siteFound = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES)
-        const pathToSite = creep.pos.findPathTo(siteFound)
+        if (Game.time%100 == 0)
+        {
+            creep.memory.appEnergy = false
+        }
+        const siteFound = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES)
         if(creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0)
         {
             creep.memory.appEnergy = false
@@ -12,7 +15,7 @@ module.exports = {
         switch(creep.build(siteFound))
         {
             case ERR_NOT_IN_RANGE:
-                creep.moveByPath(pathToSite)
+                creep.moveTo(siteFound)
                 break
             case ERR_NOT_ENOUGH_RESOURCES:
                 if(!Memory.creepsNeedEnergy[creep.name] && creep.memory.appEnergy == false)
