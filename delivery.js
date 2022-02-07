@@ -66,12 +66,16 @@ module.exports = {
                     } 
                     else
                     {
-                        const spawnFound = creep.pos.findClosestByRange(FIND_MY_SPAWNS)
-                        if(spawnFound.store.getFreeCapacity(RESOURCE_ENERGY) > 0)
+                        const structs = creep.room.find(FIND_MY_STRUCTURES,{
+                            filter: function(object) {
+                                return ((object.structureType == STRUCTURE_EXTENSION|| object.structureType == STRUCTURE_SPAWN) && object.store.getFreeCapacity(RESOURCE_ENERGY)>0);
+                            }
+                        })
+                        if (structs.length>0)
                         {
-                            if(creep.transfer(spawnFound, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+                            if(creep.transfer(structs[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
                             {
-                                creep.moveTo(spawnFound)
+                                creep.moveTo(structs[0])
                             }
                         } 
                         else
@@ -81,8 +85,7 @@ module.exports = {
                             {
                                 creep.memory.targetCreep = targetCreepName
                                 delete Memory.creepsNeedEnergy[targetCreepName]
-                            }
-                            
+                            }                                 
                         }
                     }
                 }               

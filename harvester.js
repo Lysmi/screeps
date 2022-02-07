@@ -11,7 +11,7 @@ module.exports = {
     },
     spawn(spawner)
     {
-        const creepBody = [WORK, WORK, MOVE]
+        const creepBody = [WORK, WORK, WORK, MOVE, CARRY]
         const creepName = Math.random().toString(16).substring(2, 8);
         if (spawner.spawnCreep(creepBody, creepName) == OK)
         {
